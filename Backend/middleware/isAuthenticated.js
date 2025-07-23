@@ -47,10 +47,10 @@ export const isAuthenticated = async (req, res, next) => {
                 });
             }
 
-            req.userId = user._id; // ✅ Store userId in request for use in controllers
+            req.userId = user._id; //  Store userId in request for use in controllers
             console.log(req.userId);
             
-            next(); // ✅ Move to the next middleware or controller
+            next(); //  Move to the next middleware or controller
         });
 
     } catch (error) {

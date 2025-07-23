@@ -1,13 +1,19 @@
 import express from "express";
-import { loginUser, registerUser } from "../controllers/user.controller.js";
+import { changePassword, forgotPassword, loginUser, logoutUser, registerUser, verifyOTP } from "../controllers/user.controller.js";
 import { verification } from "../middleware/registrationTokenVerify.js";
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
+import { userSchema, validateUser } from "../validators/userValidate.js";
+// import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
-router.post("/register", registerUser);
-
-// Route to verify user's email using JWT from email link
-router.get("/verify-email", verification);
+router.post("/register",validateUser(userSchema), registerUser);
+router.post("/verify-email", verification);
 router.post("/login", loginUser);
+router.post("/logout",isAuthenticated, logoutUser);
+router.post("/forgot-password", forgotPassword);
+router.post("/verify-otp/:email", verifyOTP)
+router.post("/change-password/:email", changePassword)
+// router.post("/reset-password", resetPassword);
 
 export default router;
