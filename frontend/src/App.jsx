@@ -5,7 +5,6 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
 import Verify from './pages/Verify'
-import VerifiedSuccess from './pages/VerifiedSuccess'
 import Navbar from './components/Navbar'
 import ForgotPassword from './pages/ForgotPassword'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -29,10 +28,6 @@ const router = createBrowserRouter([
   {
     path:'/verify/:token',
     element:<Verify/>
-  },
-  {
-    path:"/verified-success",
-    element:<VerifiedSuccess/>
   },
   {
     path:"/forgot-password",

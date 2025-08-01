@@ -122,21 +122,21 @@ const VerifyOTP = () => {
         }
     }
     return (
-        <div className="min-h-screen flex flex-col bg-gray-200">
+        <div className="min-h-screen flex flex-col bg-green-100">
             {/* Main Content */}
             <div className="flex-1 flex items-center justify-center p-4">
                 <div className="w-full max-w-md space-y-6">
                     <div className="text-center space-y-2">
-                        <h1 className="text-3xl font-bold tracking-tight">Verify your email</h1>
+                        <h1 className="text-3xl font-bold tracking-tight text-green-600">Verify your email</h1>
                         <p className="text-muted-foreground">
                             We've sent a 6-digit verification code to{" "}
-                            <span className="font-medium text-foreground">{email || "your email"}</span>
+                            <span className="font-medium text-foreground ">{email || "your email"}</span>
                         </p>
                     </div>
 
-                    <Card>
+                    <Card className='shadow-lg'>
                         <CardHeader className="space-y-1">
-                            <CardTitle className="text-2xl text-center">Enter verification code</CardTitle>
+                            <CardTitle className="text-2xl text-center text-green-600">Enter verification code</CardTitle>
                             <CardDescription className="text-center">
                                 {isVerified
                                     ? "Code verified successfully! Redirecting..."
@@ -189,7 +189,7 @@ const VerifyOTP = () => {
                                     <div className="space-y-3">
                                         <Button
                                             onClick={handleVerify}
-                                            className="w-full"
+                                            className="w-full bg-green-600"
                                             disabled={isLoading || otp.some((digit) => digit === "")}
                                         >
                                             {isLoading ? (
@@ -242,7 +242,7 @@ const VerifyOTP = () => {
                         <CardFooter className="flex justify-center">
                             <p className="text-sm text-muted-foreground">
                                 Wrong email?{" "}
-                                <Link to="/forgot-password" className="text-primary hover:underline font-medium">
+                                <Link to="/forgot-password" className="text-green-600 hover:underline font-medium">
                                     Go back
                                 </Link>
                             </p>

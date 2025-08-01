@@ -54,7 +54,7 @@ const ChangePassword = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-green-100 px-4">
       <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
         <h2 className="text-2xl font-semibold mb-4 text-center">Change Password</h2>
         <p className="text-sm text-gray-500 text-center mb-4">
@@ -79,7 +79,7 @@ const ChangePassword = () => {
           />
 
           <Button
-            className="w-full"
+            className="w-full bg-green-600 hover:bg-green-500"
             onClick={handleChangePassword}
             disabled={isLoading}
           >

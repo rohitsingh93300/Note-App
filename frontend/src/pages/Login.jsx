@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { BookOpen, Eye, EyeOff, Loader2 } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
-import Particles from "./Particles"
+
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { setUser } from "@/redux/authSlice"
@@ -37,6 +37,7 @@ const login = () => {
     console.log(formData);
 
     try {
+      setIsLoading(true)
       const res = await axios.post(`http://localhost:8000/api/v1/user/login`, formData, {
         headers: {
           "Content-Type": "application/json"
@@ -54,40 +55,27 @@ const login = () => {
       }
     } catch (error) {
       console.log(error);
-
+      setError(error.response.data.message)
+    } finally {
+      setIsLoading(false)
     }
 
   };
 
   return (
 
-    <div className="relative w-full h-screen md:h-[760px] bg-black overflow-hidden">
-      {/* Background particles */}
-      <div className="absolute inset-0 z-0">
-        <Particles
-          particleColors={['#ffffff', '#ffffff']}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={100}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-        />
-      </div>
-
-      {/* Foreground content */}
+    <div className="relative w-full h-screen md:h-[760px] bg-green-100 overflow-hidden">
       <div className="min-h-screen flex flex-col to-muted/20">
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="w-full max-w-md space-y-6">
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-200">Welcome back</h1>
-              <p className="text-muted-foreground">Sign in to your account to continue taking notes</p>
+              <h1 className="text-3xl font-bold tracking-tight text-green-600">Welcome back</h1>
+              <p className="text-gray-600">Sign in to your account to continue taking notes</p>
             </div>
 
-            <Card className="bg-white/10">
+            <Card className="bg-white">
               <CardHeader className="space-y-1">
-                <CardTitle className="text-2xl text-center text-gray-200">Log In</CardTitle>
+                <CardTitle className="text-2xl text-center text-green-600">Log In</CardTitle>
                 <CardDescription className="text-center">
                   Enter your email and password to access your notes
                 </CardDescription>
@@ -99,24 +87,9 @@ const login = () => {
                   </Alert>
                 )}
 
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                  {/* <div className="space-y-2">
-                    <Label htmlFor="name" className="text-gray-200">Full Name</Label>
-                    <Input
-                      id="name"
-                      // name="name" 
-                      type="text"
-                      placeholder="Enter your full name"
-                      // value={formData.name}
-                      // onChange={handleInputChange}
-                      required
-                      disabled={isLoading}
-                      className='relative text-white'
-                    />
-                  </div> */}
-
+                <form className="space-y-4" onSubmit={handleSubmit}>           
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-200">Email</Label>
+                    <Label htmlFor="email" className="text-gray-800">Email</Label>
                     <Input
                       id="email"
                       name="email"
@@ -126,12 +99,12 @@ const login = () => {
                       onChange={handleChange}
                       required
                       disabled={isLoading}
-                      className='relative text-white'
+                      className='relative'
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="password" className="text-gray-200">Password</Label>
+                    <Label htmlFor="password" className="text-gray-800">Password</Label>
                     <div className="relative">
                       <Input
                         id="password"
@@ -142,7 +115,7 @@ const login = () => {
                         onChange={handleChange}
                         required
                         disabled={isLoading}
-                        className='text-white'
+                        className=''
                       />
                       <Button
                         type="button"
@@ -153,17 +126,17 @@ const login = () => {
                         disabled={isLoading}
 
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4 text-gray-200" /> : <Eye className="h-4 w-4 text-gray-200" />}
+                        {showPassword ? <EyeOff className="h-4 w-4 text-gray-600" /> : <Eye className="h-4 w-4 text-gray-600" />}
                       </Button>
                     </div>
                     {/* <p className="text-xs text-muted-foreground">Password must be at least 8 characters long</p> */}
-                    <Link to={'/forgot-password'} className="text-gray-200 hover:underline relative text-sm">Forgot password?</Link>
+                    <Link to={'/forgot-password'} className="text-green-600 hover:underline relative text-sm">Forgot password?</Link>
                   </div>
 
 
 
 
-                  <Button type="submit" className="w-full border border-gray-200 cursor-pointer relative" disabled={isLoading}>
+                  <Button type="submit" className="w-full border border-gray-200 bg-green-600 hover:bg-green-500 cursor-pointer relative" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -175,7 +148,7 @@ const login = () => {
                   </Button>
                 </form>
 
-                <div className="relative">
+                {/* <div className="relative">
                   <div className="absolute inset-0 flex items-center">
                     <Separator className="w-full" />
                   </div>
@@ -212,11 +185,11 @@ const login = () => {
                     </svg>
                     GitHub
                   </Button>
-                </div>
+                </div> */}
 
                 <div className="text-center text-sm">
                   <span className="text-muted-foreground">Don't have an account? </span>
-                  <Link to="/signup" className="text-gray-300 hover:underline font-medium relative">
+                  <Link to="/signup" className="text-green-600 hover:underline font-medium relative">
                     Sign up
                   </Link>
                 </div>

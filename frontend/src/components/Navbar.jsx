@@ -32,6 +32,7 @@ const Navbar = () => {
             if(res.data.success){
                 dispatch(setUser(null))
                 toast.success(res.data.message)
+                localStorage.clear()
             }
         } catch (error) {
             console.log(error);
@@ -44,8 +45,8 @@ const Navbar = () => {
                 {/* logo section */}
 
                 <div onClick={() => navigate('/')} className='flex gap-2 items-center'>
-                    <BookOpen className='h-6 w-6' />
-                    <h1 className='font-bold text-xl'>NotesApp</h1>
+                    <BookOpen className='h-6 w-6 text-green-800' />
+                    <h1 className='font-bold text-xl'><span className='text-green-600'>Notes</span>App</h1>
                 </div>
 
                 <div className='flex gap-7 items-center'>
@@ -81,7 +82,7 @@ const Navbar = () => {
                         }
 
                     </ul>
-                    <Button>Get Started</Button>
+                    <Button className='bg-green-600 hover:bg-green-500'>Get Started</Button>
                 </div>
             </div>
         </nav>

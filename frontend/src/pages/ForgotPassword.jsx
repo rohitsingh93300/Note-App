@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Particles from './Particles'
 import { Link, useNavigate } from 'react-router-dom'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -15,7 +14,6 @@ import axios from 'axios'
 const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
-    const [status, setStatus] = useState(null);
     const [email, setEmail] = useState("")
     const [isSubmitted, setIsSubmitted] = useState(false)
     const dispatch = useDispatch()
@@ -43,37 +41,21 @@ const ForgotPassword = () => {
         }
     };
     return (
-        <div className="relative w-full h-[760px] bg-black overflow-hidden">
-            {/* Background particles */}
-            <div className="absolute inset-0 z-0">
-                <Particles
-                    particleColors={['#ffffff', '#ffffff']}
-                    particleCount={200}
-                    particleSpread={10}
-                    speed={0.1}
-                    particleBaseSize={100}
-                    moveParticlesOnHover={true}
-                    alphaParticles={false}
-                    disableRotation={false}
-                />
-            </div>
-
-            {/* Foreground content */}
-
+        <div className="relative w-full h-[760px] bg-green-100 overflow-hidden">
             <div className="min-h-screen flex flex-col ">
                 {/* Main Content */}
                 <div className="flex-1 flex items-center justify-center p-4">
                     <div className="w-full max-w-md space-y-6">
                         <div className="text-center space-y-2">
-                            <h1 className="text-3xl font-bold tracking-tight text-gray-200">Reset your password</h1>
+                            <h1 className="text-3xl font-bold tracking-tight text-green-600">Reset your password</h1>
                             <p className="text-muted-foreground">
                                 Enter your email address and we'll send you instructions to reset your password
                             </p>
                         </div>
 
-                        <Card className='bg-white/10'>
+                        <Card className='bg-white'>
                             <CardHeader className="space-y-1">
-                                <CardTitle className="text-2xl text-center text-gray-200">Forgot password</CardTitle>
+                                <CardTitle className="text-2xl text-center text-green-600">Forgot password</CardTitle>
                                 <CardDescription className="text-center">
                                     {isSubmitted
                                         ? "Check your email for reset instructions"
@@ -110,7 +92,7 @@ const ForgotPassword = () => {
                                     </div>
                                 ) : (
                                     <form onSubmit={handleForgotPassword} className="space-y-4">
-                                        <div className="space-y-2 relative text-gray-200">
+                                        <div className="space-y-2 relative text-gray-800">
                                             <Label >Email</Label>
                                             <Input
                                                 type="email"
@@ -122,7 +104,7 @@ const ForgotPassword = () => {
                                             />
                                         </div>
 
-                                        <Button type="submit" className="w-full bg-white text-gray-800 relative hover:bg-gray-200 cursor-pointer " disabled={isLoading}>
+                                        <Button type="submit" className="w-full bg-green-600 text-white relative hover:bg-green-500 cursor-pointer " disabled={isLoading}>
                                             {isLoading ? (
                                                 <>
                                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -138,7 +120,7 @@ const ForgotPassword = () => {
                             <CardFooter className="flex justify-center">
                                 <p className="text-sm text-muted-foreground">
                                     Remember your password?{" "}
-                                    <Link to="/login" className="text-gray-200 hover:underline font-medium relative">
+                                    <Link to="/login" className="text-green-600 hover:underline font-medium relative">
                                         Sign in
                                     </Link>
                                 </p>
@@ -148,7 +130,7 @@ const ForgotPassword = () => {
                         <div className="text-center text-xs text-muted-foreground">
                             <p>
                                 If you're still having trouble, please contact{" "}
-                                <Link to="/support" className="text-gray-200 hover:underline">
+                                <Link to="/support" className="text-green-600 hover:underline">
                                     customer support
                                 </Link>
                             </p>

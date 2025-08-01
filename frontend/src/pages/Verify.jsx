@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Particles from "./Particles";
 
 const Verify = () => {
     const { token } = useParams(); // token from URL
@@ -22,7 +21,7 @@ const Verify = () => {
                 if (response.data.success) {
                     setStatus("✅ Email Verified Successfully!");
                     setTimeout(() => {
-                        navigate("/verified-success");
+                        navigate("/login");
                     }, 2000);
                 } else {
                     setStatus("❌ Invalid or Expired Token.");
@@ -39,25 +38,10 @@ const Verify = () => {
 
     return (
 
-        <div className="relative w-full h-[760px] bg-black overflow-hidden">
-            {/* Background particles */}
-            <div className="absolute inset-0 z-0">
-                <Particles
-                    particleColors={['#ffffff', '#ffffff']}
-                    particleCount={200}
-                    particleSpread={10}
-                    speed={0.1}
-                    particleBaseSize={100}
-                    moveParticlesOnHover={true}
-                    alphaParticles={false}
-                    disableRotation={false}
-                />
-            </div>
-
-            {/* Foreground content */}
+        <div className="relative w-full h-[760px] bg-green-100 overflow-hidden">
             <div className="min-h-screen flex items-center justify-center ">
-                <div className="bg-white/5 p-6 rounded-xl shadow-md text-center w-[90%] max-w-md">
-                    <h2 className="text-xl font-semibold text-gray-200">{status}</h2>
+                <div className="bg-white p-6 rounded-xl shadow-md text-center w-[90%] max-w-md">
+                    <h2 className="text-xl font-semibold text-gray-800">{status}</h2>
                 </div>
             </div>
         </div>

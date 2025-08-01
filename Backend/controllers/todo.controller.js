@@ -2,12 +2,14 @@ import { Todo } from "../models/todo.model.js"
 
 export const addTodo = async (req, res) => {
     try {
-        const { title } = req.body;
+        const { title, description } = req.body;      
         const userId = req.userId
+        const imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
 
         const existing = await Todo.findOne({
             //   title: { $regex: title, $options: "i" }, //case insensitive
             title: title,
+            description:description,
             userId: userId,
         });
         // console.log("userid...", req.userId);
@@ -20,7 +22,9 @@ export const addTodo = async (req, res) => {
         }
         const data = await Todo.create({
             title,
+            description,
             userId: userId, // for which user we are creating note
+            image:imageUrl
         });
         if (data) {
             return res.status(200).json({
@@ -66,40 +70,46 @@ export const deleteTodo = async (req, res) => {
         const todoId = req.params.todoId;
         const userId = req.userId;
 
-        const todo = await Todo.findById(todoId)
+        const todo = await Todo.findById(todoId);
+
         if (!todo) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
                 message: "Todo not found"
-            })
+            });
         }
-        // if(todo.userId !== userId){
-        //     return res.status(400).json({
-        //         success:false,
-        //         message:"User unauthorized to delete todo"
-        //     })
-        // }
-        await Todo.findByIdAndDelete(todoId)
+
+        // Ensure the todo belongs to the logged-in user
+        if (todo.userId.toString() !== userId.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "User unauthorized to delete this todo"
+            });
+        }
+
+        await Todo.findByIdAndDelete(todoId);
+
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "Todo deleted successfully"
-        })
+        });
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: error.message
-        })
+        });
     }
-}
+};
+
 
 export const updateTodo = async (req, res) => {
     try {
-        const { title } = req.body;
+        const { title, description } = req.body;
         const todoId = req.params.todoId;
         // const userId = req.userId;
 
-        if (!title) {
+        if (!title || !description) {
             return res.status(400).json({
                 success: false,
                 message: "Title is required"
@@ -108,7 +118,7 @@ export const updateTodo = async (req, res) => {
 
         const todo = await Todo.findOneAndUpdate(
             { _id: todoId}, 
-            { title },
+            { title, description },
             { new: true } 
         );
 
