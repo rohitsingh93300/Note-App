@@ -8,12 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice";
+import Google from "../assets/googleLogo.png"
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -42,6 +46,7 @@ const Signup = () => {
       if (res.data.success) {
         navigate('/verify')
         toast.success(res.data.message)
+        dispatch(setUser())
       }
     } catch (error) {
       console.log(error);
@@ -80,12 +85,12 @@ const Signup = () => {
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <Label className="text-gray-800">Full Name</Label>
-                    <Input                   
-                      name="username" 
+                    <Input
+                      name="username"
                       type="text"
                       placeholder="Enter your full name"
                       value={formData.username}
-                      onChange={handleChange}                   
+                      onChange={handleChange}
                       required
                       disabled={isLoading}
                       className='relative'
@@ -113,7 +118,7 @@ const Signup = () => {
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Create a password"
-                        value={formData.password}                      
+                        value={formData.password}
                         onChange={handleChange}
                         required
                         disabled={isLoading}
@@ -143,6 +148,9 @@ const Signup = () => {
                     ) : (
                       "Create account"
                     )}
+                  </Button>
+                  <Button className='w-full' variant="outline" onClick={() => window.open("http://localhost:8000/auth/google", "_self")}>
+                    <img src={Google} alt="" className="w-5"/> Login with Google
                   </Button>
                 </form>
                 <div className="text-center text-sm">

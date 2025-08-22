@@ -21,6 +21,8 @@ const Navbar = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { user } = useSelector(store => store.auth)
+    console.log("user", user);
+    
     const accessToken = localStorage.getItem('accessToken')
     const logoutHandler = async()=>{
         try {
@@ -54,12 +56,13 @@ const Navbar = () => {
                         <li>Features</li>
                         <li>Pricing</li>
                         <li>About</li>
+                        <li>{user?.username}</li>
                         {
                             user ?
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <Avatar className='cursor-pointer'>
-                                            <AvatarImage src="https://github.com/shadcn.png" />
+                                            <AvatarImage src={user?.avatar} />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>

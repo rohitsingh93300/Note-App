@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
+import Google from "../assets/googleLogo.png"
 
 import axios from "axios"
 import { useDispatch } from "react-redux"
@@ -87,7 +87,7 @@ const login = () => {
                   </Alert>
                 )}
 
-                <form className="space-y-4" onSubmit={handleSubmit}>           
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-gray-800">Email</Label>
                     <Input
@@ -145,6 +145,9 @@ const login = () => {
                     ) : (
                       "Log Into Account"
                     )}
+                  </Button>
+                  <Button className='w-full' variant="outline" onClick={() => window.open("http://localhost:8000/auth/google", "_self")}>
+                    <img src={Google} alt="" className="w-5" /> Login with Google
                   </Button>
                 </form>
 

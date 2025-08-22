@@ -46,7 +46,7 @@ export const isAuthenticated = async (req, res, next) => {
                     message: "User not found",
                 });
             }
-
+            req.user = user
             req.userId = user._id; //  Store userId in request for use in controllers
             // console.log(req.userId);
             

@@ -11,11 +11,12 @@ import ProtectedRoute from './components/ProtectedRoute'
 import VerifyOTP from './pages/VerifyOTP'
 import ChangePassword from './pages/ChangePassword'
 import CreateTodo from './pages/CreateTodo'
+import AuthSuccess from './pages/AuthSuccess'
 
 const router = createBrowserRouter([
   {
     path:'/',
-    element:<ProtectedRoute><Navbar/><Home/></ProtectedRoute>
+    element:<><Navbar/><Home/></>
   },
   {
     path:'/signup',
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path:'/login',
     element:<Login/>
+  },
+  {
+    path:'/auth-success',
+    element:<AuthSuccess/>
   },
   {
     path:'/create-todo',

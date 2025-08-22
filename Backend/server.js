@@ -4,6 +4,8 @@ import connectDB from "./database/db.js"
 import userRoute from "./routes/user.route.js"
 import todoRoute from "./routes/todo.route.js"
 import cors from 'cors'
+import "./config/passport.js"; // important to load passport config
+import authRoutes from "./routes/auth.route.js"
 // import cookieParser from "cookie-parser"
 
 
@@ -19,6 +21,7 @@ app.use(cors({
 app.use('/uploads', express.static('uploads'));
 // app.use(cookieParser())
 
+app.use("/auth", authRoutes);
 app.use("/api/v1/user", userRoute)
 app.use("/api/v1/todo", todoRoute)
 
